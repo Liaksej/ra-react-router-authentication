@@ -35,7 +35,7 @@ export const AuthorizationForm = () => {
     if (authorized) {
       dispatch({ type: "authorized" });
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <Form className="flex gap-2" method="post">
