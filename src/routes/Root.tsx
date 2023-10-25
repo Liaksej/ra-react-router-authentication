@@ -5,7 +5,7 @@ import { UserContext } from "@/context/UserContext.tsx";
 export default function Root() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { state } = useContext(UserContext);
+  const { state, dispatch } = useContext(UserContext);
 
   const isNewsPage = /^\/news\/[A-Za-z0-9-]+$/.test(location.pathname);
 
@@ -21,6 +21,11 @@ export default function Root() {
     }
     if (!state.authorized && isNewsPage) {
       navigate("/");
+    }
+    if (!localStorage.getItem("authorized")) {
+      {
+        dispatch({ type: "unauthorized" });
+      }
     }
   }, [state.authorized, location.pathname]);
   return (

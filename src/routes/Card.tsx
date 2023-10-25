@@ -1,4 +1,4 @@
-import { json, Link, Params, useLoaderData } from "react-router-dom";
+import { json, Link, Params, redirect, useLoaderData } from "react-router-dom";
 import { loader as loaderAuthorized } from "@/routes/Authorized.tsx";
 
 interface UserData {
@@ -17,7 +17,9 @@ interface Card {
 
 export async function loader({ params }: { params: Params }) {
   if (!localStorage.getItem("authorized")) {
-    throw json({ statusText: "Unauthorized", code: 401 });
+    localStorage.removeItem("authorized");
+    localStorage.removeItem("user");
+    return redirect("/");
   }
   const id = params.id;
   const cardData: Card = await fetch(

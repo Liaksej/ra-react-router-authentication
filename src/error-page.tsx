@@ -1,4 +1,4 @@
-import { useNavigate, useRouteError } from "react-router-dom";
+import { useRouteError } from "react-router-dom";
 import { useEffect } from "react";
 
 export default function ErrorPage() {
@@ -8,15 +8,12 @@ export default function ErrorPage() {
     | { status: string; statusText: string };
   console.error(error);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     if ("data" in error && error.data.code === 401) {
       localStorage.removeItem("authorized");
       localStorage.removeItem("user");
-      navigate("/");
     }
-  }, []);
+  }, [error]);
 
   return (
     <div

@@ -31,7 +31,7 @@ export const CardsList = () => {
       {cards.map((card) => {
         return (
           <Link to={`/news/${card.id}`} className="block w-1/3" key={card.id}>
-            <div className="bg-gray-200 p-8">
+            <div className="bg-gray-200 p-8 h-full">
               <img src={card.image} alt="Картинка" />
               <h2 className="text-2xl font-medium">{card.title}</h2>
               <p>{card.content}</p>

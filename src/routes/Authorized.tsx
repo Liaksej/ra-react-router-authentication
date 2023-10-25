@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "@/context/UserContext.tsx";
 import { Button } from "@/routes/Button.tsx";
-import { json, useLoaderData } from "react-router-dom";
+import { json, redirect, useLoaderData } from "react-router-dom";
 
 const HELLO_TEXT = "Hello, ";
 
@@ -21,7 +21,9 @@ interface Card {
 
 export async function loader() {
   if (!localStorage.getItem("authorized")) {
-    throw json({ statusText: "Unauthorized", code: 401 });
+    localStorage.removeItem("authorized");
+    localStorage.removeItem("user");
+    return redirect("/");
   }
 
   const token = localStorage.getItem("authorized");
